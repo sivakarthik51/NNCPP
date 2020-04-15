@@ -29,6 +29,17 @@ Matrix::Matrix(int numRows, int numCols, bool isRandom)
         this->values.push_back(colValues);
     }
 }
+Matrix::Matrix(vector<double>& mat)
+{
+    if(mat.size() == 0)
+    {
+        throw "Error: Empty Vector";
+    }
+    numRows = 1;
+    numCols = mat.size();
+    
+    values.push_back(mat);
+}
 
 void Matrix::printToConsole()
 {
@@ -230,4 +241,17 @@ vector<double> Matrix::flatten()
         }
     }
     return flat;
+}
+
+double Matrix::sum()
+{
+    double sm = 0.0;
+    for(int i = 0;i<numRows;i++)
+    {
+        for(int j = 0;j<numCols;j++)
+        {
+            sm+=values[i][j];
+        }
+    }
+    return sm;
 }

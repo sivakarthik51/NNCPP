@@ -11,6 +11,7 @@ class Matrix
     public:
         //Constructor
         Matrix(int numRows,int numCols, bool isRandom);
+        Matrix(vector<double>&);
 
         Matrix transpose();
 
@@ -49,12 +50,14 @@ class Matrix
         friend Matrix operator / (Matrix&, double);
 
         //Unary Minus
-        friend Matrix operator - (Matrix &);
+        friend Matrix operator - (Matrix&);
 
         //Output Operator Overload
         friend ostream& operator <<(ostream&,Matrix&);
 
         vector<double>& operator[](int);
+
+        double sum();
 
     private:
         int numRows;
