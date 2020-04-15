@@ -22,12 +22,22 @@ class NeuralNetwork
         Matrix getWeightMatrix(int);
         void feedForward();
 
+        double getTotalError() {return error;}
+        vector<double> getErrors() {return errors;}
+        void setCurrentTarget(vector<double>& tar) {target = tar;}
+
+        void setErrors();
+
     private:
         int topologySize;
         vector<int> topology;
         vector<Layer> layers;
         vector<Matrix> weightMatrices;
         vector<double> input;
+        vector<double> target;
+        double error;
+        vector<double> errors;
+        vector<double> historicalErrors;
         
 };
 

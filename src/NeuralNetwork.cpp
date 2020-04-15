@@ -29,6 +29,7 @@ void NeuralNetwork::setCurrentInput(vector<double> input)
 
 }
 
+//TODO convert to ostream overload
 void NeuralNetwork::printToConsole()
 {
     for(int i =0 ;i<layers.size();i++)
@@ -66,4 +67,26 @@ void NeuralNetwork::feedForward()
         layers[i+1].setVal(vals);
 
     }
+}
+
+void NeuralNetwork::setErrors()
+{
+    if(target.size() == 0)
+    {
+        throw "Error: No Targets for this Neural Netork";
+    }
+    if(target.size() != layers[layers.size()-1].getNeurons().size() )
+    {
+        throw "Error: Dimensions Mismatch between Output Layer and Target";
+    }
+    
+    int outputLayerIndex = layers.size()-1;
+    Matrix outputMatrix = layers[outputLayerIndex].matrixifyActivatedVals();
+    Matrix targetMatrix = Matrix(target);
+    
+    Matrix err = outputMatrix-targetMatrix;
+    error = err.sum();
+    errors = err.flatten();
+    
+    historicalErrors.push_back(error);
 }

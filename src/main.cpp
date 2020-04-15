@@ -10,10 +10,17 @@ int main(int argc,char **argv)
     vector<int> top{3,2,3};
     NeuralNetwork nn(top);
     vector<double> inputs{0.5,0.6,0.7};
+    vector<double> targets{1,0,1};
     nn.setCurrentInput(inputs);
 
     nn.feedForward();
+    nn.setCurrentTarget(targets);
+    cout<<"Completed Feed Forward"<<endl;
+    nn.setErrors();
+    cout<<"Completed Setting Error"<<endl;
     nn.printToConsole();
+
+    cout<<"Total Error:"<<nn.getTotalError()<<endl;
 
     //nn->printToConsole();
 
@@ -34,8 +41,9 @@ int main(int argc,char **argv)
 
     Matrix m5 = 2.0 * m1;
 
-    cout<<m4[0][0]<<endl;
-    cout<<m5[0][0]<<endl;
+    Matrix m6 = m4-m5;
+
+    cout<<m6;
 
 
     // m1->printToConsole();
