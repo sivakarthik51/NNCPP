@@ -18,7 +18,7 @@ int main(int argc,char **argv)
     cout<<"Completed Feed Forward"<<endl;
     nn.setErrors();
     cout<<"Completed Setting Error"<<endl;
-    nn.printToConsole();
+    cout<<nn;
 
     cout<<"Total Error:"<<nn.getTotalError()<<endl;
 

@@ -15,7 +15,6 @@ class NeuralNetwork
         //Constructor
         NeuralNetwork(vector<int>& topology);
         void setCurrentInput(vector<double>);
-        void printToConsole();
         Matrix getNeuronMatrix(int i) { return layers[i].matrixifyVals();}
         Matrix getActivatedNeuronMatrix(int i) {return layers[i].matrixifyActivatedVals();}
         Matrix getDerivedNeuronMatrix(int i) {return layers[i].matrixifyDerivedVals();}
@@ -27,6 +26,8 @@ class NeuralNetwork
         void setCurrentTarget(vector<double>& tar) {target = tar;}
 
         void setErrors();
+
+        friend ostream& operator << (ostream&,NeuralNetwork&);
 
     private:
         int topologySize;

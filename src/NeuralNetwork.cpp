@@ -29,23 +29,33 @@ void NeuralNetwork::setCurrentInput(vector<double> input)
 
 }
 
-//TODO convert to ostream overload
-void NeuralNetwork::printToConsole()
+ostream& operator << (ostream& os, NeuralNetwork& nn)
 {
-    for(int i =0 ;i<layers.size();i++)
+    os<<"===================================================================="<<endl;
+    for(int i =0 ;i<nn.layers.size();i++)
     {
-        cout<<"LAYER: "<<i<<endl;
+        os<<"LAYER: "<<i<<endl;
+        os<<"Values of Layer:"<<endl;
         if(i == 0)
         {
-            Matrix m = layers[i].matrixifyVals();
-            cout<<m;
+            Matrix m = nn.layers[i].matrixifyVals();
+            os<<m;
         }
         else
         {
-            Matrix m = layers[i].matrixifyActivatedVals();
-            cout<<m;
+            Matrix m = nn.layers[i].matrixifyActivatedVals();
+            os<<m;
         }
+        if(i!= nn.layers.size()-1)
+        {
+            os<<"Weight Matrix:"<<endl;
+            Matrix w = nn.getWeightMatrix(i);
+            os<<w;
+        }
+        os<<"===================================================================="<<endl;
+
     }
+    return os;
 }
 Matrix NeuralNetwork::getWeightMatrix(int i)
 {
