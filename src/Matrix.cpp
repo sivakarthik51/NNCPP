@@ -29,7 +29,7 @@ Matrix::Matrix(int numRows, int numCols, bool isRandom)
         this->values.push_back(colValues);
     }
 }
-Matrix::Matrix(vector<double>& mat)
+Matrix::Matrix(vector<double> mat)
 {
     if(mat.size() == 0)
     {
@@ -76,7 +76,7 @@ double Matrix::getVal(int r,int c)
     return values[r][c]; 
 }
 
-Matrix operator * (Matrix&  m1,Matrix&  m2)
+Matrix operator * (Matrix m1,Matrix  m2)
 {
     if(m1.numCols != m2.numRows)
     {
@@ -96,7 +96,7 @@ Matrix operator * (Matrix&  m1,Matrix&  m2)
     return res;
 }
 
-Matrix operator * (Matrix& m1,double v)
+Matrix operator * (Matrix m1,double v)
 {
     Matrix res(m1.numRows,m1.numCols,false);
     for(int i = 0;i<m1.numRows;i++)
@@ -108,12 +108,12 @@ Matrix operator * (Matrix& m1,double v)
     }
     return res;
 }
-Matrix operator *(double v ,Matrix& m1)
+Matrix operator *(double v ,Matrix m1)
 {
     return m1*v;
 }
 
-Matrix operator + (Matrix& m1,Matrix& m2)
+Matrix operator + (Matrix m1,Matrix m2)
 {
     if(m1.numRows!= m2.numRows || m1.numCols!=m2.numCols)
     {
@@ -130,7 +130,7 @@ Matrix operator + (Matrix& m1,Matrix& m2)
     return res;
 }
 
-Matrix operator + (Matrix& m1,double v)
+Matrix operator + (Matrix m1,double v)
 {
     Matrix res(m1.numRows,m1.numCols,false);
     for( int i = 0;i<m1.numRows;i++)
@@ -143,12 +143,12 @@ Matrix operator + (Matrix& m1,double v)
     return res;
 }
 
-Matrix operator + (double v,Matrix& m1)
+Matrix operator + (double v,Matrix m1)
 {
     return m1+v;
 }
 
-Matrix operator - (Matrix& m1,Matrix& m2)
+Matrix operator - (Matrix m1,Matrix m2)
 {
     if(m1.numRows!= m2.numRows || m1.numCols!=m2.numCols)
     {
@@ -165,7 +165,7 @@ Matrix operator - (Matrix& m1,Matrix& m2)
     return res;
 }
 
-Matrix operator - (Matrix& m1,double v)
+Matrix operator - (Matrix m1,double v)
 {
     Matrix res(m1.numRows,m1.numCols,false);
     for( int i = 0;i<m1.numRows;i++)
@@ -178,7 +178,7 @@ Matrix operator - (Matrix& m1,double v)
     return res;
 }
 
-Matrix operator / (Matrix& m1,double v)
+Matrix operator / (Matrix m1,double v)
 {
     if(v == 0)
     {
@@ -195,7 +195,7 @@ Matrix operator / (Matrix& m1,double v)
     return res;
 }
 
-Matrix operator - (Matrix &m1)
+Matrix operator - (Matrix m1)
 {
     Matrix res(m1.numRows,m1.numCols,false);
     for( int i = 0;i<m1.numRows;i++)
@@ -214,7 +214,7 @@ ostream& operator <<(ostream& os,Matrix& m)
     {
         for(int j = 0;j<m.numCols;j++)
         {
-            os<<m.getVal(i,j)<<"\t";
+            os<<m.getVal(i,j)<<"\t\t";
         }
         os<<endl;
     }
@@ -254,4 +254,21 @@ double Matrix::sum()
         }
     }
     return sm;
+}
+
+Matrix Matrix::dot(Matrix& m)
+{
+    if(numRows != m.getNumRows() || numCols!= m.getNumCols())
+    {
+        throw "Error: Dimension Mismatch";
+    }
+    Matrix res(numRows,numCols,false);
+    for(int i = 0;i<numRows;i++)
+    {
+        for(int j = 0;j<numCols;j++)
+        {
+            res.setVal(i,j,values[i][j]*m.getVal(i,j));
+        }
+    }
+    return res;
 }

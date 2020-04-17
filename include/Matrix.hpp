@@ -11,7 +11,7 @@ class Matrix
     public:
         //Constructor
         Matrix(int numRows,int numCols, bool isRandom);
-        Matrix(vector<double>&);
+        Matrix(vector<double>);
 
         Matrix transpose();
 
@@ -24,33 +24,35 @@ class Matrix
         double getRandomNumber();
         void printToConsole();
 
+        Matrix dot(Matrix&);
+
         vector<double> flatten();
 
         //Multiply two matrices
-        friend Matrix operator * (Matrix&,Matrix&);
+        friend Matrix operator * (Matrix,Matrix);
 
         //Multiply Matrix by scalar
-        friend Matrix operator * (Matrix&,double);
-        friend Matrix operator *(double,Matrix&);
+        friend Matrix operator * (Matrix,double);
+        friend Matrix operator *(double,Matrix);
 
         //Add Two Matrices
-        friend Matrix operator + (Matrix&,Matrix&);
+        friend Matrix operator + (Matrix,Matrix);
 
         //Add Sclar to Matrix
-        friend Matrix operator + (Matrix&,double);
-        friend Matrix operator + (double,Matrix&);
+        friend Matrix operator + (Matrix,double);
+        friend Matrix operator + (double,Matrix);
 
         //Subtract Matrices
-        friend Matrix operator - (Matrix&, Matrix&);
+        friend Matrix operator - (Matrix, Matrix);
 
         //Subtract Scalar from Matrix
-        friend Matrix operator - (Matrix&, double);
+        friend Matrix operator - (Matrix, double);
 
         // Divide Matrix by Scalar
-        friend Matrix operator / (Matrix&, double);
+        friend Matrix operator / (Matrix, double);
 
         //Unary Minus
-        friend Matrix operator - (Matrix&);
+        friend Matrix operator - (Matrix);
 
         //Output Operator Overload
         friend ostream& operator <<(ostream&,Matrix&);
