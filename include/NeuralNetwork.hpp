@@ -21,6 +21,8 @@ class NeuralNetwork
         Matrix getWeightMatrix(int);
         void feedForward();
 
+        void backPropagation();
+
         double getTotalError() {return error;}
         vector<double> getErrors() {return errors;}
         void setCurrentTarget(vector<double>& tar) {target = tar;}
@@ -34,6 +36,7 @@ class NeuralNetwork
         vector<int> topology;
         vector<Layer> layers;
         vector<Matrix> weightMatrices;
+        vector<Matrix> gradientMatrices;
         vector<double> input;
         vector<double> target;
         double error;

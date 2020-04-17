@@ -100,3 +100,39 @@ void NeuralNetwork::setErrors()
     
     historicalErrors.push_back(error);
 }
+
+void NeuralNetwork::backPropagation()
+{
+    vector<Matrix> newWeights;
+    
+    int outputLayerIndex = layers.size()-1;
+    Matrix derivedValsYToZ = layers[outputLayerIndex].matrixifyDerivedVals();
+    Matrix gradientsYToZ = Matrix(errors).dot(derivedValsYToZ);
+    int lastHiddenLayerIndex = outputLayerIndex -1;
+    Layer lastHiddenLayer = layers[lastHiddenLayerIndex];
+    Matrix weightsOutputToHidden = weightMatrices[lastHiddenLayerIndex];
+    Matrix deltaOutputToHidden = (gradientsYToZ.transpose() * lastHiddenLayer.matrixifyActivatedVals()).transpose();
+    Matrix newWeightsOutputToHidden = weightsOutputToHidden - deltaOutputToHidden;
+    newWeights.push_back(newWeightsOutputToHidden);
+    Matrix gradient = gradientsYToZ;
+    for(int i = outputLayerIndex-1;i>=1;i--)
+    {
+        Layer l = layers[i];
+        Matrix activatedHidden = l.matrixifyActivatedVals();
+        Matrix derivedHidden = l.matrixifyDerivedVals();
+        Matrix weightMatrix = weightMatrices[i];
+        Matrix derivedGradients = (gradient * weightMatrix.transpose()).dot(activatedHidden);
+        
+        Matrix leftNeurons = (i-1) == 0 ? layers[0].matrixifyVals() : layers[i-1].matrixifyActivatedVals();
+        Matrix deltaWeights = derivedGradients.transpose() * leftNeurons;
+        
+        Matrix newWeightsHidden = weightMatrices[i-1] - deltaWeights.transpose();
+        
+        newWeights.push_back(newWeightsHidden);
+        gradient = derivedGradients;        
+    }
+
+    reverse(newWeights.begin(),newWeights.end());
+    weightMatrices = newWeights;
+
+}
