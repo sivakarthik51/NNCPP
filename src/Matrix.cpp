@@ -208,7 +208,7 @@ Matrix operator - (Matrix m1)
     return res;
 }
 
-ostream& operator <<(ostream& os,Matrix& m)
+ostream& operator <<(ostream& os,Matrix m)
 {
     for(int i = 0;i<m.numRows;i++)
     {
@@ -268,6 +268,19 @@ Matrix Matrix::dot(Matrix& m)
         for(int j = 0;j<numCols;j++)
         {
             res.setVal(i,j,values[i][j]*m.getVal(i,j));
+        }
+    }
+    return res;
+}
+
+Matrix Matrix::power(double p)
+{
+    Matrix res(numRows,numCols,false);
+    for(int i = 0;i<numRows;i++)
+    {
+        for(int j = 0;j<numCols;j++)
+        {
+            res[i][j] = pow(values[i][j],p);
         }
     }
     return res;

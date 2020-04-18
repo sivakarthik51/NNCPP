@@ -55,11 +55,14 @@ class Matrix
         friend Matrix operator - (Matrix);
 
         //Output Operator Overload
-        friend ostream& operator <<(ostream&,Matrix&);
+        friend ostream& operator <<(ostream&,Matrix);
 
         vector<double>& operator[](int);
 
         double sum();
+
+        //Raises each element in the Matrix to the power specified.
+        Matrix power(double);
 
     private:
         int numRows;
