@@ -95,7 +95,7 @@ void NeuralNetwork::setErrors()
     Matrix targetMatrix = Matrix(target);
     
     Matrix err = outputMatrix-targetMatrix;
-    error = err.sum();
+    error = 0.5* err.power(2).sum();
     errors = err.flatten();
     
     historicalErrors.push_back(error);

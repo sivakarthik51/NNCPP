@@ -14,21 +14,26 @@ int main(int argc,char **argv)
     nn.setCurrentInput(inputs);
     nn.setCurrentTarget(targets);
     
-    for(int i = 0;i<10000;i++)
+    for(int i = 0;i<100000;i++)
     {
         nn.feedForward();
         nn.setErrors();
         nn.backPropagation();
-        cout<<"Total Error:"<<nn.getTotalError()<<endl;
+        if(i%1000 == 0)
+        {
+            cout<<"Total Error:"<<nn.getTotalError()<<endl;
+            cout<<"Output:"<<nn.getActivatedNeuronMatrix(2);
+        }
+
+
     }
 
-    //nn->printToConsole();
 
     // Matrix m1(2,3,true);
-    // cout<<"Multiplying"<<endl;
-    // Matrix m2 = m1.transpose();
-    // cout<<m2;
-    // cout<<"Transposed"<<endl;
+    
+    // cout<<m1;
+    // cout<<m1.power(2);
+    
     
     // Matrix m3 = m1*m1.transpose();
     // cout<<m3;

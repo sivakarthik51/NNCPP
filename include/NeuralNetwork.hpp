@@ -26,6 +26,7 @@ class NeuralNetwork
         double getTotalError() {return error;}
         vector<double> getErrors() {return errors;}
         void setCurrentTarget(vector<double>& tar) {target = tar;}
+        vector<double> getTarget() {return target;}
 
         void setErrors();
 
